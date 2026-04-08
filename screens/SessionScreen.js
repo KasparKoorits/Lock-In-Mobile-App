@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import common from "../styles/common";
 import useTimer from "../hooks/useTimer";
+import InterruptionModal from "../components/InterruptionModal";
 
 const styles = {
   header: { alignItems: 'center', marginBottom: 24, paddingTop: 8 },
@@ -60,16 +61,33 @@ const styles = {
 };
 
 export default function SessionScreen({ task, onEnd }) {
-  const { display, timeLeft, paused, finished, toggle, stop } = useTimer(
+  const { display, timeLeft, paused, finished, toggle, pause, stop } = useTimer(
     task.duration * 60,
   );
-  const [interruptions] = useState([]);
+  const [interruptions, setInterruptions] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     if (finished) {
       onEnd({ completed: true, interruptions });
     }
   }, [finished]);
+
+  const handleInterruptionSelect = (type) => {
+    const time = new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    setInterruptions((prev) => [...prev, { type, time }]);
+    setModalVisible(false);
+    if (paused) toggle();
+  };
+
+  const handleInterruptionOpen = () => {
+    pause();
+    setModalVisible(true);
+  };
 
   const handleEnd = () => {
     stop();
@@ -86,7 +104,6 @@ export default function SessionScreen({ task, onEnd }) {
           <Text style={styles.sub}>Focus mode active</Text>
         </View>
 
-        {/* Timer */}
         <View style={styles.timerWrap}>
           <View style={styles.timerRing}>
             <Text style={styles.timerDigits}>{display}</Text>
@@ -96,12 +113,11 @@ export default function SessionScreen({ task, onEnd }) {
 
         <View style={styles.divider} />
 
-        {/* Controls — interruption button is a stub here */}
         <View style={styles.btnRow}>
           <TouchableOpacity style={styles.btnDark} onPress={toggle}>
             <Text style={styles.btnDarkText}>{paused ? "▶ Resume" : "⏸ Pause"}</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.btnIntOutline} onPress={() => {}}>
+          <TouchableOpacity style={styles.btnIntOutline} onPress={handleInterruptionOpen}>
             <Text style={styles.btnIntText}>⚠ Interruption</Text>
           </TouchableOpacity>
         </View>
@@ -110,7 +126,6 @@ export default function SessionScreen({ task, onEnd }) {
           <Text style={common.btnRedText}>⏹ End Session</Text>
         </TouchableOpacity>
 
-        {/* Time info */}
         <View style={styles.timeCard}>
           <View>
             <Text style={styles.tcLbl}>Planned time</Text>
@@ -122,6 +137,15 @@ export default function SessionScreen({ task, onEnd }) {
           </View>
         </View>
       </ScrollView>
+
+      <InterruptionModal
+        visible={modalVisible}
+        onSelect={handleInterruptionSelect}
+        onCancel={() => {
+          setModalVisible(false);
+          if (paused) toggle();
+        }}
+      />
     </SafeAreaView>
   );
 }
