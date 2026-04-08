@@ -9,6 +9,7 @@ import {
 import common from "../styles/common";
 import useTimer from "../hooks/useTimer";
 import InterruptionModal from "../components/InterruptionModal";
+import { formatInterruptionTime } from "../utils/formatters";
 
 const styles = {
   header: { alignItems: 'center', marginBottom: 24, paddingTop: 8 },
@@ -74,11 +75,7 @@ export default function SessionScreen({ task, onEnd }) {
   }, [finished]);
 
   const handleInterruptionSelect = (type) => {
-    const time = new Date().toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
+    const time = formatInterruptionTime(new Date());
     setInterruptions((prev) => [...prev, { type, time }]);
     setModalVisible(false);
     if (paused) toggle();
