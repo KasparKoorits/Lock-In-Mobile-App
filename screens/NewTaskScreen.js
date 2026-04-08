@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import common from "../styles/common";
 import { colors } from "../styles/theme";
+import DurationPicker from "../components/DurationPicker";
 
 const styles = {
   backBtn: { padding: 4 },
@@ -71,13 +72,7 @@ export default function NewTaskScreen({ navigate, onStart }) {
         />
 
         <Text style={common.fieldLabel}>⏱ Duration (minutes)</Text>
-        {/* Plain numeric input — DurationPicker added in next commit */}
-        <TextInput
-          style={common.input}
-          keyboardType="numeric"
-          value={String(duration)}
-          onChangeText={(v) => setDuration(parseInt(v) || 25)}
-        />
+        <DurationPicker value={duration} onChange={setDuration} />
 
         <View style={styles.tipBox}>
           <Text style={styles.tipText}>
