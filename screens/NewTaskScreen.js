@@ -8,24 +8,9 @@ import {
   SafeAreaView,
 } from "react-native";
 import common from "../styles/common";
+import styles from "../styles/screens/NewTaskScreenStyles";
 import { colors } from "../styles/theme";
 import DurationPicker from "../components/DurationPicker";
-
-const styles = {
-  backBtn: { padding: 4 },
-  backBtnText: { color: '#ffffff', fontSize: 22 },
-  inputError: { borderWidth: 1.5, borderColor: '#e02020' },
-  tipBox: {
-    backgroundColor: '#141820',
-    borderRadius: 11,
-    padding: 14,
-    marginBottom: 20,
-    borderLeftWidth: 3,
-    borderLeftColor: '#e02020',
-  },
-  tipText: { color: '#aaaaaa', fontSize: 13, lineHeight: 18 },
-  tipBold: { color: '#ffffff', fontWeight: '600' },
-};
 
 export default function NewTaskScreen({ navigate, onStart }) {
   const [name, setName] = useState("");
