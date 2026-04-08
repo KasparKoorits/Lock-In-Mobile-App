@@ -9,7 +9,7 @@ import NewTaskScreen from "./screens/NewTaskScreen";
 import SessionScreen from "./screens/SessionScreen";
 import SummaryScreen from "./screens/SummaryScreen";
 import StatsScreen from "./screens/StatsScreen";
-import useSessionStore from "./utils/useSessionStore";
+import useSessionStore from "./hooks/useSessionStore";
 
 export default function App() {
   const [screen, setScreen] = useState("home");

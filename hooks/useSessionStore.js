@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatSessionDate } from "./formatters";
+import { formatSessionDate } from "../utils/formatters";
 
 
 export default function useSessionStore() {
