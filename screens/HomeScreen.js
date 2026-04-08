@@ -33,7 +33,7 @@ export default function HomeScreen({ navigate, todayStats }) {
             </View>
           </View>
           <TouchableOpacity style={styles.iconBtn} onPress={() => navigate("stats")}>
-            <Text style={styles.iconBtnText}>▦</Text>
+            <Text style={styles.iconBtnText}>Statistics</Text>
           </TouchableOpacity>
         </View>
 

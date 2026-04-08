@@ -47,7 +47,7 @@ export default function StatsScreen({ navigate, sessions }) {
           <View style={styles.midCard}>
             <Text style={styles.midIcon}>↗</Text>
             <Text style={styles.midVal}>{streak}</Text>
-            <Text style={styles.midLbl}>Day Streak 🔥</Text>
+            <Text style={styles.midLbl}>Day Streak</Text>
           </View>
           <View style={styles.midCard}>
             <Text style={styles.midIcon}>⚡</Text>

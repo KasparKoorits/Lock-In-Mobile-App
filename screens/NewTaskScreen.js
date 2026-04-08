@@ -36,7 +36,7 @@ export default function NewTaskScreen({ navigate, onStart }) {
           <Text style={common.screenTitle}>New Task</Text>
         </View>
 
-        <Text style={common.fieldLabel}>📄 Task Name *</Text>
+        <Text style={common.fieldLabel}>Task Name *</Text>
         <TextInput
           style={[common.input, nameError && styles.inputError]}
           placeholder="e.g. Math homework"
@@ -45,7 +45,7 @@ export default function NewTaskScreen({ navigate, onStart }) {
           onChangeText={(v) => { setName(v); setNameError(false); }}
         />
 
-        <Text style={common.fieldLabel}>✦ Description (optional)</Text>
+        <Text style={common.fieldLabel}>Description (optional)</Text>
         <TextInput
           style={[common.input, common.inputMultiline]}
           placeholder="Add additional details..."

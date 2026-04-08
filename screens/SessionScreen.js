@@ -63,15 +63,15 @@ export default function SessionScreen({ task, onEnd }) {
 
         <View style={styles.btnRow}>
           <TouchableOpacity style={styles.btnDark} onPress={toggle}>
-            <Text style={styles.btnDarkText}>{paused ? "▶ Resume" : "⏸ Pause"}</Text>
+            <Text style={styles.btnDarkText}>{paused ? "Resume" : "Pause"}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnIntOutline} onPress={handleInterruptionOpen}>
-            <Text style={styles.btnIntText}>⚠ Interruption</Text>
+            <Text style={styles.btnIntText}>Interruption</Text>
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity style={common.btnRed} onPress={handleEnd}>
-          <Text style={common.btnRedText}>⏹ End Session</Text>
+          <Text style={common.btnRedText}>End Session</Text>
         </TouchableOpacity>
 
         <View style={styles.timeCard}>
