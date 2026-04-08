@@ -1,3 +1,6 @@
+// Commit 17b — App.js refactored to consume useSessionStore.
+// Session accumulation logic is no longer inline here.
+
 import React, { useState } from "react";
 import { StatusBar } from "react-native";
 
@@ -6,18 +9,13 @@ import NewTaskScreen from "./screens/NewTaskScreen";
 import SessionScreen from "./screens/SessionScreen";
 import SummaryScreen from "./screens/SummaryScreen";
 import StatsScreen from "./screens/StatsScreen";
-import { formatSessionDate } from "./utils/formatters";
+import useSessionStore from "./utils/useSessionStore";
 
 export default function App() {
   const [screen, setScreen] = useState("home");
   const [currentTask, setCurrentTask] = useState(null);
   const [lastResult, setLastResult] = useState(null);
-  const [sessions, setSessions] = useState([]);
-  const [todayStats, setTodayStats] = useState({
-    sessions: 0,
-    time: 0,
-    interruptions: 0,
-  });
+  const { sessions, todayStats, recordSession } = useSessionStore();
 
   const navigate = (s) => setScreen(s);
 
@@ -28,27 +26,7 @@ export default function App() {
 
   const handleEnd = (result) => {
     setLastResult(result);
-    const ic = result.interruptions.length;
-    const dur = currentTask.duration;
-    const dateStr = formatSessionDate(new Date());
-
-    setSessions((prev) => [
-      {
-        name: currentTask.name,
-        date: dateStr,
-        duration: dur,
-        interruptions: ic,
-        completed: result.completed,
-      },
-      ...prev,
-    ]);
-
-    setTodayStats((prev) => ({
-      sessions: prev.sessions + 1,
-      time: prev.time + dur,
-      interruptions: prev.interruptions + ic,
-    }));
-
+    recordSession(currentTask, result);
     setScreen("summary");
   };
 
