@@ -1,6 +1,3 @@
-// Commit 17b — App.js refactored to consume useSessionStore.
-// Session accumulation logic is no longer inline here.
-
 import React, { useState } from "react";
 import { StatusBar } from "react-native";
 
